@@ -1,0 +1,58 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Edit a team member</h1>
+  <p style="color:grey">Edit contact info, location and role.<p>
+  <hr />
+  <!-- Post call to send updated member info -->
+  <form action="" method="POST">
+		{% csrf_token %}
+		<!-- Member fields with populated values -->
+		<b>Info</b>
+		<div>
+			<input type="text" class="type" name="first_name" placeholder="First Name" value="{{ member.first_name}}">
+		</div>
+		<br>
+		<div>
+			<input type="text" class="type" name="last_name" placeholder="Last Name" value="{{ member.last_name}}">
+		</div>
+		<br>
+		<div>
+			<input type="email" class="type" name="email_address" placeholder="Email Address" oninvalid="this.setCustomValidity('Enter in format: abc@xyz.com')" oninput="this.setCustomValidity('')" value="{{ member.email_address}}">
+		</div>
+		<br>
+		<div>
+			<input type="tel" class="type" name="phone_number" placeholder="Phone Number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required oninvalid="this.setCustomValidity('Enter in format: 123-456-7890')" oninput="this.setCustomValidity('')" value="{{ member.phone_number}}">
+		</div>
+		<br>
+		<b>Role</b>
+		<!-- Checking if role is regular or not -->
+		{% if member.role == "r" %}
+			<div>
+				<input type="radio" id="regular" name="role" value="r" checked="checked">
+				<label for="regular">Regular - Can't delete numbers</label><br><hr />
+				<input type="radio" id="admin" name="role" value="a">
+				<label for="admin">Admin - Can delete numbers</label><br><hr />
+			</div>
+		{% else %}
+			<div>
+				<input type="radio" id="regular" name="role" value="r">
+				<label for="regular">Regular - Can't delete numbers</label><br><hr />
+				<input type="radio" id="admin" name="role" value="a" checked="checked">
+				<label for="admin">Admin - Can delete numbers</label><br><hr />
+			</div>
+		{% endif %}
+		<div class="row">
+			<div class="column right">
+				<i id="delete"></i>
+				<button type="submit" name= "delete_member" class="button delete-button">Delete</button>
+			</div>
+			<div class="column left">
+				<i id="save"></i>
+				<button type="submit" name= "save_member" class="button save-button">Save</button>
+			</div>
+		</div>
+  </form>
+		
+  
+{% endblock %}

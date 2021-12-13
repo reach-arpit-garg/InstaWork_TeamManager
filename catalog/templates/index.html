@@ -1,0 +1,30 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <!-- Add button for adding new members -->
+  <a href="{% url 'member_add'  %}" style="float:right;font-size:50px;> <i class="fa fa-plus">+</i></a>
+  <br>
+  <h1>Team members</h1>
+  <p style="color:grey">You have {{ num_members }} team members.</p>
+  <hr />
+  <ul>
+	<!-- Looping through and displaying all the members -->
+	{% for member in all_members %}
+				<!-- Edit div for editing existing members -->
+				<a href="{% url 'member_edit' member.id %}">
+					<!-- Profile image -->
+					<div class="row">
+						<div class="column left">
+							<img src="../static/blank-profile-picture.png" style="width:50px;height:50px;">
+						</div>
+						<!-- Member details -->
+						<div class="column right">
+							<b style="color:black"> {{ member.first_name }} {{ member.last_name }} {% if member in admin_members %}(admin){% endif %}</b>
+							<p style="color:grey"> {{ member.phone_number }}<br>{{ member.email_address }} </p>
+						</div>
+					</div>
+				</a>
+			<hr />
+	{% endfor %}
+  </ul>
+{% endblock %}

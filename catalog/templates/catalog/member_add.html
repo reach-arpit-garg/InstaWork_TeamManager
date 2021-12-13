@@ -1,0 +1,41 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Add a team member</h1>
+  <p style="color:grey">Set email, location and role.<p style="color:grey">
+  <hr />
+  <!-- Post call to send fields of the new member -->
+  <form action="" method="POST">
+		{% csrf_token %}
+		<b>Info</b>
+		<!-- Member fields to enter values -->
+		<div>
+			<input type="text" class="type" name="first_name" placeholder="First Name">
+		</div>
+		<br>
+		<div>
+			<input type="text" class="type" name="last_name" placeholder="Last Name">
+		</div>
+		<br>
+		<div>
+			<input type="email" class="type" name="email_address" placeholder="Email Address" oninvalid="this.setCustomValidity('Enter in format: abc@xyz.com')" oninput="this.setCustomValidity('')">
+		</div>
+		<br>
+		<div>
+			<input type="tel" class="type" name="phone_number" placeholder="Phone Number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required oninvalid="this.setCustomValidity('Enter in format: 123-456-7890')" oninput="this.setCustomValidity('')">
+		</div>
+		<br>
+		<b>Role</b>
+		<div>
+			<input type="radio" id="regular" name="role" value="r" checked="checked">
+			<label for="regular">Regular - Can't delete numbers</label><br><hr />
+			<input type="radio" id="admin" name="role" value="a">
+			<label for="admin">Admin - Can delete numbers</label><br><hr />
+		</div>
+		<div>
+			<i id="save"></i>
+			<button type="submit" class="button save-button">Save</button>
+		</div>
+  </form>
+  
+{% endblock %}
